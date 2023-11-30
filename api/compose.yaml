@@ -7,8 +7,8 @@ services:
       - 'MYSQL_ROOT_PASSWORD=verysecret'
       - 'MYSQL_USER=myuser'
     ports:
-      - '3306'
+      - '3306:3306'
   redis:
-    image: 'redis:6.0.9'
+    image: 'redis:7.2.3'
     ports:
-      - '6379'
+      - '6379:6379'
