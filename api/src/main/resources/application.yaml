@@ -1,0 +1,7 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: ./api/compose.yaml
+  jpa:
+    open-in-view: false

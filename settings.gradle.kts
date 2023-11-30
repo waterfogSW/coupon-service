@@ -10,3 +10,4 @@ plugins {
 }
 
 rootProject.name = "coupon-service"
+include("api")
