@@ -8,3 +8,7 @@ services:
       - 'MYSQL_USER=myuser'
     ports:
       - '3306'
+  redis:
+    image: 'redis:6.0.9'
+    ports:
+      - '6379'
