@@ -25,7 +25,7 @@ class CouponServiceIntegrationTest(
             count shouldBe 1
         }
 
-        context("여러명이 동시에 요청한다") {
+        it("새로운 쿠폰을 생성한다(동시요청)") {
             val threadCount = 1000;
             val executorService: ExecutorService = Executors.newFixedThreadPool(threadCount)
             val latch = CountDownLatch(threadCount)
