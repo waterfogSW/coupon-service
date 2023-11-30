@@ -1,8 +1,9 @@
 spring:
-  jpa:
-    database: h2
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
   datasource:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/mydatabase
+    username: myuser
+    password: secret
+  data:
+    redis:
+      host: localhost
+      port: 6379
