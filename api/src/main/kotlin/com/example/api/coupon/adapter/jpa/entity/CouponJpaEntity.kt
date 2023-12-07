@@ -1,9 +1,10 @@
-package com.example.api.domain
+package com.example.api.coupon.adapter.jpa.entity
 
+import com.example.api.coupon.domain.Coupon
 import jakarta.persistence.*
 
 @Entity
-class Coupon(
+class CouponJpaEntity(
     id: Long? = null,
     userId: Long,
 ) {
@@ -17,7 +18,9 @@ class Coupon(
         private set
 
     companion object {
-        const val COUPON_LIMIT: Long = 100
-        fun create(userId: Long): Coupon = Coupon(userId = userId)
+        fun from(coupon: Coupon): CouponJpaEntity = CouponJpaEntity(
+            id = coupon.id,
+            userId = coupon.userId
+        )
     }
 }

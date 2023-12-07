@@ -1,21 +1,21 @@
-package com.example.api.repository
+package com.example.api.coupon.adapter
 
+import com.example.api.coupon.application.port.out.CouponCountRepository
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 
-@Repository
-class CouponCountRepository(
+@Component
+class CouponCountAdapter(
     private val redisTemplate: RedisTemplate<String, String>
-) {
+) : CouponCountRepository {
 
     companion object {
         const val COUPON_COUNT_KEY = "coupon_count"
     }
 
-    fun increment(): Long {
+    override fun increment(): Long {
         return redisTemplate
             .opsForValue()
             .increment(COUPON_COUNT_KEY) ?: throw RuntimeException("잘못된 요청입니다.")
     }
-
 }
