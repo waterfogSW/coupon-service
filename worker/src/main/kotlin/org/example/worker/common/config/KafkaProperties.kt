@@ -6,4 +6,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 data class KafkaProperties(
     val bootstrapServers: String,
     val couponCreateTopic: String,
+    val groupId: String,
 )

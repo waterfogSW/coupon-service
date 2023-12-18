@@ -10,3 +10,4 @@ kafka:
   consumer:
     bootstrap-servers: localhost:9092
     coupon-create-topic: coupon-create
+    group-id: group_1

@@ -9,9 +9,6 @@ bootJar.enabled = false
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:${Version.SPRING_BOOT}")
 
-    // jpa
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${Version.SPRING_BOOT}")
-
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis:${Version.SPRING_BOOT}")
 

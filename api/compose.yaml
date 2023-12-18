@@ -1,13 +1,4 @@
 services:
-  mysql:
-    image: 'mysql:8.0.32'
-    environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
-    ports:
-      - '3306:3306'
   redis:
     image: 'redis:7.2.3'
     ports:
