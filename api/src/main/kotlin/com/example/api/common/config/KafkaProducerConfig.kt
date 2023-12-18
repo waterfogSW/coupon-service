@@ -11,7 +11,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 
 @Configuration
 class KafkaProducerConfig (
-    private val kafkaProducerProperties: KafkaProducerProperties
+    private val kafkaProperties: KafkaProperties
 ){
 
     @Bean
@@ -23,7 +23,7 @@ class KafkaProducerConfig (
 
     private fun producerProps(): Map<String, Any> {
         val props: MutableMap<String, Any> = HashMap()
-        props[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = kafkaProducerProperties.bootstrapServers
+        props[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = kafkaProperties.bootstrapServers
         props[ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG] = StringSerializer::class.java
         props[ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG] = LongSerializer::class.java
         props[JsonSerializer.ADD_TYPE_INFO_HEADERS] = true
