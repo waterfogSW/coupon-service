@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+kafka:
+  producer:
+    bootstrap-servers: localhost:9092
+    topic:
+      coupon-create: coupon-create
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+kafka:
+  producer:
+    bootstrap-servers: kafka:9092
+    topic:
+      coupon-create: coupon-create

@@ -9,7 +9,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.bokeh"
+    group = "com.waterfogsw"
     version = "0.0.1-SNAPSHOT"
 
     repositories {

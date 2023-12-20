@@ -1,0 +1,38 @@
+server:
+  port: 8081
+  shutdown: graceful
+spring:
+  profiles:
+    active: local
+    include:
+      - persistence
+      - usecase
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  docker:
+    compose:
+      enabled: true
+      file: ./coupon-bootstrap/worker/compose.yaml
+kafka:
+  consumer:
+    bootstrap-servers: localhost:9092
+    group-id: coupon-worker
+    topic:
+      coupon-create: coupon-create
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  docker:
+    compose:
+      enabled: false
+kafka:
+  consumer:
+    bootstrap-servers: kafka:9092
+    group-id: coupon-worker
+    topic:
+      coupon-create: coupon-create
