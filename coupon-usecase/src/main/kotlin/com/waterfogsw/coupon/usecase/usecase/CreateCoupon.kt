@@ -12,8 +12,6 @@ class CreateCoupon (
     override fun invoke(command: CreateCouponUseCase.Command): CreateCouponUseCase.Result {
         val coupon: Coupon = Coupon.create(command.userId)
 
-        println("coupon: $coupon")
-
         couponRepository.save(coupon)
 
         return CreateCouponUseCase.Result.Success
