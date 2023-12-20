@@ -31,6 +31,7 @@ subprojects {
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib:${Version.KOTLIN}")
         implementation("org.jetbrains.kotlin:kotlin-reflect:${Version.KOTLIN}")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.2")
 
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 

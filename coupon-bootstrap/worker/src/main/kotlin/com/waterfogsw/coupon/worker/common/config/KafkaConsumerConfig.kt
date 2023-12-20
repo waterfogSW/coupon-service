@@ -15,21 +15,31 @@ class KafkaConsumerConfig(
 ) {
 
     @Bean
-    fun kafkaConsumerFactory(): DefaultKafkaConsumerFactory<String, Long> {
+    fun kafkaConsumerFactory(): DefaultKafkaConsumerFactory<String, Any> {
         val props = HashMap<String, Any>()
         props[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = kafkaConsumerProperties.bootstrapServers
         props[ConsumerConfig.GROUP_ID_CONFIG] = kafkaConsumerProperties.groupId
         props[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         props[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = JsonDeserializer::class.java
-        return DefaultKafkaConsumerFactory(props)
+
+        return DefaultKafkaConsumerFactory(
+            props,
+            StringDeserializer(),
+            jsonDeserializer(),
+        )
     }
 
     @Bean
-    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, Long> {
-        val factory = ConcurrentKafkaListenerContainerFactory<String, Long>()
+    fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, Any> {
+        val factory = ConcurrentKafkaListenerContainerFactory<String, Any>()
         factory.consumerFactory = kafkaConsumerFactory()
         return factory
     }
 
+    fun jsonDeserializer(): JsonDeserializer<Any> {
+        val deserializer = JsonDeserializer<Any>()
+        deserializer.addTrustedPackages("com.waterfogsw.coupon.*")
+        return deserializer
+    }
 
 }
