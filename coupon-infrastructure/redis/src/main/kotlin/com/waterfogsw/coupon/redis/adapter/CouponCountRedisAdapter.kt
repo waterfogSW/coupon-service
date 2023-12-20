@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class CouponCountRedisAdapter (
-    private val redisHandler: RedisHandler
+    private val redisStringHandler: RedisStringHandler
 ): CouponCountRepository {
 
     companion object {
@@ -13,12 +13,12 @@ class CouponCountRedisAdapter (
     }
 
     override fun increment(): Long {
-        return redisHandler.increment(COUPON_COUNT_KEY)
+        return redisStringHandler.increment(COUPON_COUNT_KEY)
             ?: throw IllegalStateException("Redis increment failed")
     }
 
     override fun get(): Long {
-        return redisHandler.get(COUPON_COUNT_KEY)
+        return redisStringHandler.get(COUPON_COUNT_KEY)
             ?: throw IllegalStateException("Redis get failed")
     }
 

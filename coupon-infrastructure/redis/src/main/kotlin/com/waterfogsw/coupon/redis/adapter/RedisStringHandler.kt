@@ -4,7 +4,7 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class RedisHandler(
+class RedisStringHandler(
     private val redisTemplate: RedisTemplate<String, Any>
 ) {
 
