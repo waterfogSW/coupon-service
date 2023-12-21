@@ -1,9 +1,10 @@
+package com.waterfogsw.coupon.usecase.usecase
+
 import com.example.coupon.domain.Coupon
 import com.waterfogsw.coupon.usecase.port.CouponCountRepository
 import com.waterfogsw.coupon.usecase.port.CouponEventProducer
 import com.waterfogsw.coupon.usecase.port.CouponIssuedUserRepository
 import com.waterfogsw.coupon.usecase.port.vo.CouponCreateEvent
-import com.waterfogsw.coupon.usecase.usecase.IssueCouponUseCase
 import org.springframework.stereotype.Service
 
 @Service
