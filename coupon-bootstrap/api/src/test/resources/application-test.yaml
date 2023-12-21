@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  shutdown: graceful
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+kafka:
+  producer:
+    bootstrap-servers: localhost:9092
+    topic:
+      coupon-create: coupon-create
