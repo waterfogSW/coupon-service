@@ -1,14 +1,16 @@
 # 멀티 모듈 헥사고날 아키텍처로 선착순 쿠폰시스템 만들기
 
-- 헥사고날 아키텍처와 멀티모듈에 대해서 다룹니다.
-- 헥사고날 아키텍처를 적용하면서 구현에 미친 영향에 대해서 다룹니다.
-  - Component Scan의 패키지 범위설정 
-  - Component Scan의 LazyInit 옵션
-  - application.yaml 파일의 include
-
 ![img.png](docs/system-diagram.png)
 
 선착순 쿠폰 시스템을 만드는 과정에서, Producer와 Consumer를 분리해 서버를 설계하면서 도메인을 중복으로 작성하게 되어 관리포인트가 늘어난다는 느낌을 받았습니다. 이를 해결하기 위해 헥사고날 아키텍처를 활용해 도메인 모듈을 따로 분리하고 하나의 도메인 의존성을 Producer모듈과 Consumer모듈에서 의존하게 하여 도메인 관리포인트를 하나로 줄이는 방식으로 설계해 보았습니다.
+
+아래 내용을 주로 담고있습니다.
+- 헥사고날 아키텍처와 멀티모듈을 활용해 설계한 선착순 쿠폰 시스템의 구조를 설명합니다.
+- 멀티모듈, 헥사고날 아키텍처의 개념
+- 구현 방법
+  - Component Scan의 패키지 범위설정
+  - Component Scan의 LazyInit 옵션
+  - application.yaml 파일의 include
 
 ## 헥사고날 아키텍처
 
@@ -56,22 +58,23 @@
 앞서 설명한 헥사고날 아키텍처의 각 레이어를 차용하여 모듈을 설계하였습니다.
 
 ### Domain Hexagon
+도메인 모델을 정의하는 모듈이므로, Domain Hexagon으로 명명하였습니다.
 
-애플리케이션의 핵심 로직을 담당하는 모듈로, 도메인을 정의하고 있습니다. 
+애플리케이션의 핵심 로직을 담당하는 모듈로, 도메인을 정의하고 있습니다.
 - POJO로 구현되어 있습니다.
 - common 모듈내 라이브러리 외 의존성을 가지지 않습니다.
 
-도메인 모델을 정의하는 모듈이므로, Domain Hexagon으로 명명하였습니다.
 
 ### Use Case Hexagon
+도메인에 대한 유스케이스를 정의하는 모듈이므로, UseCase Hexagon으로 명명하였습니다.
 
 도메인에 대한 Use Case를 정의하는 모듈입니다.
 - 외부 시스템과의 통신을 위한 Port 인터페이스를 정의합니다.
 - Domain 외 Spring Boot, Common 모듈내 라이브러리 의존성을 가집니다.
 
-도메인에 대한 유스케이스를 정의하는 모듈이므로, UseCase Hexagon으로 명명하였습니다.
 
 ### Infrastructure Hexagon
+외부 인프라에대한 의존성을 정의하는 모듈이므로, Infrastructure Hexagon으로 명명하였습니다.
 
 - 외부 인프라와의 통신을 위한 Secondary Adapter를 정의합니다.
   - Kafka Producer Adapter, Persistence Adapter, Redis Adapter 등
@@ -85,9 +88,9 @@
   - application-persistence.yaml
   - application-redis.yaml
 
-외부 인프라에대한 의존성을 정의하는 모듈이므로, Infrastructure Hexagon으로 명명하였습니다.
 
 ### Bootstrap Hexagon
+여러 의존성을 조합해 하나의 애플리케이션 서버를 구성하는 모듈이므로 Bootstrap Hexagon으로 명명하였습니다.
 
 - 외부 요청을 받아 Use Case를 실행하기 위한 Primary Adapter를 정의합니다.
   - RestController, Kafka Consumer 등
@@ -95,12 +98,9 @@
 - Spring Boot Application을 정의합니다.
 - UseCase Hexagon과 Infrastructure Hexagon을 의존합니다.
 
-여러 의존성을 조합해 하나의 애플리케이션 서버를 구성하는 모듈이므로 Bootstrap Hexagon으로 명명하였습니다.
-
 Infrastructure 모듈과 같이 애플리케이션이 제공할 각 서비스별로 Module을 분리해 제공하는 방법도 고려해보았지만, 애플리케이션 서버마다 제공하는 API가 서로 다른경우가 훨씬 많기 때문에 모듈분리의 효용성이 떨어진다고 판단하여 Bootstrap 모듈에 Primary Adapter를 정의하였습니다.
 
-
-## 헥사고날 아키텍처를 적용하면서 구현에 미친 영향
+## 구현 과정
 
 ### Component Scan에 Lazy 옵션을 적용하기
 
