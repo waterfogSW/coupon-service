@@ -2,13 +2,13 @@ package com.waterfogsw.coupon.worker.kafka
 
 import com.waterfogsw.coupon.usecase.port.CouponEventConsumer
 import com.waterfogsw.coupon.usecase.port.vo.CouponCreateEvent
-import com.waterfogsw.coupon.usecase.usecase.CreateCouponUseCase
+import com.waterfogsw.coupon.usecase.usecase.CreateCoupon
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 
 @Component
 class CouponKafkaConsumerAdapter(
-    private val createCouponUseCase: CreateCouponUseCase,
+    private val createCoupon: CreateCoupon,
 ) : CouponEventConsumer {
 
     @KafkaListener(
@@ -16,11 +16,11 @@ class CouponKafkaConsumerAdapter(
         groupId = "\${kafka.consumer.group-id}"
     )
     override fun receiveCreateEvent(event: CouponCreateEvent) {
-        val command: CreateCouponUseCase.Command =
-            CreateCouponUseCase.Command(
+        val command: CreateCoupon.Command =
+            CreateCoupon.Command(
                 userId = event.userId
             )
 
-        createCouponUseCase.invoke(command)
+        createCoupon.invoke(command)
     }
 }

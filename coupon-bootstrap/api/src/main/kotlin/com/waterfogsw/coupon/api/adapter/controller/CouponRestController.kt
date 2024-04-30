@@ -1,7 +1,7 @@
 package com.waterfogsw.coupon.api.adapter.controller
 
 import com.waterfogsw.coupon.api.adapter.dto.IssueCouponRequest
-import com.waterfogsw.coupon.usecase.usecase.IssueCouponUseCase
+import com.waterfogsw.coupon.usecase.usecase.IssueCoupon
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("api/v1/coupons")
 class CouponRestController(
-    private val issueCouponUseCase: IssueCouponUseCase
+    private val issueCoupon: IssueCoupon
 ) {
 
     @PostMapping
@@ -19,15 +19,15 @@ class CouponRestController(
         @RequestBody
         request: IssueCouponRequest
     ): ResponseEntity<Unit> {
-        val command: IssueCouponUseCase.Command =
-            IssueCouponUseCase.Command(
+        val command: IssueCoupon.Command =
+            IssueCoupon.Command(
                 userId = request.userId
             )
 
-        val result = issueCouponUseCase.invoke(command)
+        val result = issueCoupon.invoke(command)
         return when (result) {
-            is IssueCouponUseCase.Result.Success -> ResponseEntity.ok().build()
-            is IssueCouponUseCase.Result.Failure -> ResponseEntity.badRequest().build()
+            is IssueCoupon.Result.Success -> ResponseEntity.ok().build()
+            is IssueCoupon.Result.Failure -> ResponseEntity.badRequest().build()
         }
     }
 }

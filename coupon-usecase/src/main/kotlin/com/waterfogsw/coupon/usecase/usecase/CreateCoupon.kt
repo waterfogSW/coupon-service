@@ -1,20 +1,15 @@
 package com.waterfogsw.coupon.usecase.usecase
 
-import com.example.coupon.domain.Coupon
-import com.waterfogsw.coupon.usecase.port.CouponRepository
-import org.springframework.stereotype.Service
+import java.util.*
 
-@Service
-class CreateCoupon (
-    private val couponRepository: CouponRepository
-): CreateCouponUseCase {
+fun interface CreateCoupon {
 
-    override fun invoke(command: CreateCouponUseCase.Command): CreateCouponUseCase.Result {
-        val coupon: Coupon = Coupon.create(command.userId)
+    fun invoke(command: Command): Result
 
-        couponRepository.save(coupon)
+    data class Command(val userId: UUID)
 
-        return CreateCouponUseCase.Result.Success
+    sealed class Result {
+        data object Success : Result()
+        data class Failure(val throwable: Throwable) : Result()
     }
-
 }
