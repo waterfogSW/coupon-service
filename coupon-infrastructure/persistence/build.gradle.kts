@@ -10,7 +10,7 @@ dependencies {
     implementation(project(":coupon-domain"))
     implementation(project(":coupon-usecase"))
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${Version.SPRING_BOOT}")
+    implementation(libs.spring.boot.starter.data.jpa)
 
-    runtimeOnly("mysql:mysql-connector-java:${Version.MYSQL}")
+    runtimeOnly(libs.mysql.connector.java)
 }

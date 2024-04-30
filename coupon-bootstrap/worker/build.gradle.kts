@@ -3,9 +3,8 @@ dependencies {
     implementation(project(":coupon-usecase"))
     implementation(project(":persistence"))
 
-    implementation("org.springframework.boot:spring-boot-starter-web:${Version.SPRING_BOOT}")
-    implementation("org.springframework.kafka:spring-kafka:${Version.SPRING_KAFKA}")
-
-    developmentOnly("org.springframework.boot:spring-boot-devtools:${Version.SPRING_BOOT}")
-    developmentOnly("org.springframework.boot:spring-boot-docker-compose:${Version.SPRING_BOOT}")
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.kafka)
+    developmentOnly(libs.spring.boot.devtools)
+    developmentOnly(libs.spring.boot.docker.compose)
 }

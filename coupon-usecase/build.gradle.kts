@@ -10,5 +10,5 @@ dependencies {
     implementation(project(":ulid"))
     implementation(project(":coupon-domain"))
 
-    implementation("org.springframework.boot:spring-boot:${Version.SPRING_BOOT}")
+    implementation(libs.spring.boot.core)
 }

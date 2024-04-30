@@ -10,5 +10,5 @@ dependencies {
     implementation(project(":coupon-domain"))
     implementation(project(":coupon-usecase"))
 
-    implementation("org.springframework.boot:spring-boot-starter-data-redis:${Version.SPRING_BOOT}")
+    implementation(libs.spring.boot.starter.data.redis)
 }
